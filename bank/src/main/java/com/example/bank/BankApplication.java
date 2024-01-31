@@ -2,7 +2,6 @@ package com.example.bank;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Component;
 
 @SpringBootApplication
 public class BankApplication {
@@ -13,11 +12,11 @@ public class BankApplication {
 
 	private final ClientBase clientBase;
 	private final TransactionBase transactionBase;
-	private final Service service;
+	private final TransferService transferService;
 
-	public BankApplication(ClientBase clientBase, Service service, TransactionBase transactionBase) {
+	public BankApplication(ClientBase clientBase, TransferService transferService, TransactionBase transactionBase) {
 		this.clientBase = clientBase;
-		this.service = service;
+		this.transferService = transferService;
 		this.transactionBase = transactionBase;
 		execProcess();
 

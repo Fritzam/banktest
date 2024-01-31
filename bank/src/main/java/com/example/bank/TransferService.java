@@ -1,14 +1,15 @@
 package com.example.bank;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
-public class Service {
+@Service
+public class TransferService {
 
     private final ClientBase clientBase;
     private final TransactionBase transactionBase;
 
-    Service(ClientBase clientBase, TransactionBase transactionBase) {
+    TransferService(ClientBase clientBase, TransactionBase transactionBase) {
         this.clientBase = clientBase;
         this.transactionBase = transactionBase;
     }

@@ -21,14 +21,14 @@ public class ServiceIntegrationTests {
     private ClientBase clientBase;
 
     @Autowired
-    private Service service;
+    private TransferService transferService;
 
     @Test
     void shouldBeValidTransfer() {
         Client mock = Mockito.mock(Client.class);
         when(clientBase.getClient(1)).thenReturn(mock);
         when(mock.getAccountBalance()).thenReturn(8000.0);
-        assertThat(service.validTransfer(1, 7000)).isTrue();
+        assertThat(transferService.validTransfer(1, 7000)).isTrue();
     }
 
     @Test
@@ -36,7 +36,7 @@ public class ServiceIntegrationTests {
         Client mock = Mockito.mock(Client.class);
         when(clientBase.getClient(1)).thenReturn(mock);
         when(mock.getAccountBalance()).thenReturn(8000.0);
-        assertThat(service.validTransfer(1, 20000)).isFalse();
+        assertThat(transferService.validTransfer(1, 20000)).isFalse();
     }
 
     @Test
@@ -44,7 +44,7 @@ public class ServiceIntegrationTests {
         Client clientMock = Mockito.mock(Client.class);
         when(clientBase.getClient(1)).thenReturn(clientMock);
         when(clientMock.getAccountBalance()).thenReturn(8000.0);
-        assertThrows(IllegalArgumentException.class, () -> service.transferMoney(1, 12000));
+        assertThrows(IllegalArgumentException.class, () -> transferService.transferMoney(1, 12000));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class ServiceIntegrationTests {
         Client clientMock = Mockito.mock(Client.class);
         when(clientBase.getClient(1)).thenReturn(clientMock);
         when(clientMock.getAccountBalance()).thenReturn(8000.0);
-        service.transferMoney(1, 5000);
+        transferService.transferMoney(1, 5000);
         verify(clientMock).setAccountBalance(3000);
     }
 
@@ -61,7 +61,7 @@ public class ServiceIntegrationTests {
         Client clientMock = Mockito.mock(Client.class);
         when(clientBase.getClient(1)).thenReturn(clientMock);
         when(clientMock.getAccountBalance()).thenReturn(8000.0);
-        service.addToBalance(1, 2000.0);
+        transferService.addToBalance(1, 2000.0);
         verify(clientMock).setAccountBalance(10000.0);
     }
 
@@ -75,7 +75,7 @@ public class ServiceIntegrationTests {
         when(clientMock.getAccountBalance()).thenReturn(2000.0);
         when(transactionMock.getTransferStatus()).thenReturn(TransferStatus.OK);
 
-        TransactionReport report = service.addToBalance(1, 8000);
+        TransactionReport report = transferService.addToBalance(1, 8000);
 
         assertThat(report.getID()).isEqualTo(1);
         assertThat(report.getCurrentBalance()).isEqualTo(2000.0);
