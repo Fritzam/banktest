@@ -12,10 +12,18 @@ public class BankApplication {
 	}
 
 	private final ClientBase clientBase;
+	private final TransactionBase transactionBase;
 	private final Service service;
 
-	public BankApplication(ClientBase clientBase, Service service) {
+	public BankApplication(ClientBase clientBase, Service service, TransactionBase transactionBase) {
 		this.clientBase = clientBase;
 		this.service = service;
+		this.transactionBase = transactionBase;
+		execProcess();
+
+	}
+
+	public void execProcess() {
+		clientBase.addClient(12500);
 	}
 }
