@@ -7,6 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class ClientBaseUnitTests {
     private ClientBase clientBase;
@@ -24,6 +25,11 @@ public class ClientBaseUnitTests {
     void shouldAddUser() {
         clientBase.addClient(12000);
         assertThat(clientBase.getClientList().get(0).getID()).isEqualTo(1);
+    }
+
+    @Test
+    void shouldThrowExceptionFindingUser() {
+        assertThrows(NoSuchElementException.class, () -> clientBase.getClient(12));
     }
 
     @Test
